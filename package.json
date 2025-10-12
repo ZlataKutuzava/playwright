@@ -16,7 +16,9 @@
     "prettier": "prettier --config .prettierrc src/**/*.ts --check src/",
     "prettier:fix": "prettier --config .prettierrc src/**/*.ts --write src/",
     "format": "npm run lint && npm run prettier",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:ui": "npx playwright test",
+    "ui-mode": "npx playwright test --ui"
   },
   "author": "Zlata Kutuzava",
   "license": "ISC",
