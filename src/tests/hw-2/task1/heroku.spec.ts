@@ -12,7 +12,7 @@
 //   - Дождаться появления чекбокса
 //   - Завалидировать текст It's back!
 
-import test, { expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
 test.describe("[Heroku] [Dynamic Controls]", () => {
   test.beforeEach("Open Main Page", async ({ page }) => {
@@ -27,9 +27,11 @@ test.describe("[Heroku] [Dynamic Controls]", () => {
     const checkboxInput = page.locator("//input[@type='checkbox']");
     const addButton = page.locator("//button[text()='Add']");
     const messageString = page.locator("p#message");
+    const dynamicControlsPageTitle = page.getByText("Dynamic Controls");
+    const removeAddTitle = page.getByText("Remove/add");
     await dynamicControlsLink.click();
-    await expect(page.locator("div.example h4:nth-of-type(1)")).toHaveText("Dynamic Controls");
-    await expect(page.locator("div.example h4:nth-of-type(2)")).toHaveText("Remove/add");
+    await expect(dynamicControlsPageTitle).toHaveText("Dynamic Controls");
+    await expect(removeAddTitle).toHaveText("Remove/add");
     await expect(removeButton).toBeVisible();
     await checkboxInput.check();
     await removeButton.click();

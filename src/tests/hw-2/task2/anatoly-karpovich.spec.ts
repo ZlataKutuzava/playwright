@@ -7,7 +7,7 @@
 //   Рекоммендации:
 //   - Для доступа к localStorage используйте https://playwright.dev/docs/evaluating
 
-import test, { expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
 test.describe("[Anatoly-Karpovich] [Login Form]", () => {
   test("Login Page Form", async ({ page }) => {
