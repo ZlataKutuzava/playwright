@@ -4,7 +4,7 @@
 // 2. Заполните форму регистрации
 // 3. Проверьте, что пользователь успешно зарегистрирован
 
-import test, { expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
 test.describe("[Anatoly-Karpovich] [Registration Form]", () => {
   test("Registration with valid values", async ({ page }) => {

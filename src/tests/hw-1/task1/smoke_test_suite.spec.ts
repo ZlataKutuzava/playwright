@@ -8,8 +8,7 @@
 //       Username: обязательное
 //       Password: обязательное
 
-import test, { expect } from "@playwright/test";
-import { before, beforeEach } from "node:test";
+import { test, expect } from "@playwright/test";
 
 enum MESSAGES {
   LOGIN_FAILED = "Credentials are required",
