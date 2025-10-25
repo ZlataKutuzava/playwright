@@ -14,13 +14,9 @@ test.describe("[Herokuapp] [Example Table 2]", () => {
   test("Return rows by email for the Example table 2", async ({ page }) => {
     await page.goto("https://the-internet.herokuapp.com/tables");
     await expect(page.getByRole("heading", { level: 3 })).toHaveText("Data Tables");
-    const table = page.locator("table#table2");
-    await expect(table).toBeVisible();
     for (const expectedRow of expectedTable) {
-      const rowWithEmail = await getTableRow(page, expectedRow.Email);
-      const rowMatchedInExpectedTable = expectedTable.find((row) => row.Email === rowWithEmail.Email);
-      expect(rowMatchedInExpectedTable).toBeDefined();
-      expect(rowWithEmail).toEqual(rowMatchedInExpectedTable);
+      const actualRow = await getTableRow(page, expectedRow.Email);
+      expect(actualRow).toEqual(expectedRow);
     }
   });
 });

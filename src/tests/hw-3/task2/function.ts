@@ -4,26 +4,13 @@ import { ITableRow } from "./tableData";
 export async function getTableRow(page: Page, email: string): Promise<ITableRow> {
   const table = page.locator("table#table2");
   await expect(table).toBeVisible();
-  const emailCell = table.locator(`//td[text()='${email}']`);
-  await expect(emailCell).toBeVisible();
-  const row = emailCell.locator("//parent::tr");
+  const row = page.locator(`//tr[td[text()='${email}']]`);
   const cells = await row.locator("td").allInnerTexts();
-  const [lastName, firstName, emailAddress, due, webSite] = cells;
-  if (!lastName || !firstName || !emailAddress || !due || !webSite) {
-    throw new Error(`${email} does not exist in the table.`);
-  }
-  console.log({
-    "Last Name": lastName,
-    "First Name": firstName,
-    Email: emailAddress,
-    Due: due,
-    "Web Site": webSite
+  const headers = await table.locator("th").allInnerTexts();
+  headers.pop();
+  const result: any = {};
+  headers.forEach((header, index) => {
+    result[header] = cells[index];
   });
-  return {
-    "Last Name": lastName,
-    "First Name": firstName,
-    Email: emailAddress,
-    Due: due,
-    "Web Site": webSite
-  };
+  return result;
 }
