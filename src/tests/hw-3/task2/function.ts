@@ -1,5 +1,5 @@
 import { expect, Page } from "@playwright/test";
-import { ITableRow } from "./tableData";
+import { ITableRow } from "./tabledata";
 
 export async function getTableRow(page: Page, email: string): Promise<ITableRow> {
   const table = page.locator("table#table2");
@@ -8,9 +8,9 @@ export async function getTableRow(page: Page, email: string): Promise<ITableRow>
   const cells = await row.locator("td").allInnerTexts();
   const headers = await table.locator("th").allInnerTexts();
   headers.pop();
-  const result: any = {};
+  const result = {} as ITableRow;
   headers.forEach((header, index) => {
-    result[header] = cells[index];
+    result[header as keyof ITableRow] = cells[index] ?? "";
   });
   return result;
 }

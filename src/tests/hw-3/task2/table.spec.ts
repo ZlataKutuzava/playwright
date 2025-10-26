@@ -7,7 +7,7 @@
 // Сайт: https://the-internet.herokuapp.com/tables
 
 import { test, expect } from "@playwright/test";
-import { expectedTable } from "./tableData";
+import { expectedTable } from "./tabledata";
 import { getTableRow } from "./function";
 
 test.describe("[Herokuapp] [Example Table 2]", () => {
