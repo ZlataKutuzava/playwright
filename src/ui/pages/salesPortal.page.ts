@@ -5,14 +5,24 @@ import { SALES_PORTAL_URL } from "src/config/env";
 export abstract class SalesPortalPage extends BasePage {
   readonly spinner = this.page.locator(".spinner-border");
   readonly toastMessage = this.page.locator(".toast-body");
+  readonly toastCloseButton = this.page.locator("#toast button");
   abstract readonly uniqueElement: Locator;
 
-  async waitForPageOpened() {
+  async waitForOpened() {
     await expect(this.uniqueElement).toBeVisible();
+    await this.waitForSpinners();
+  }
+
+  async waitForSpinners() {
     await expect(this.spinner).toHaveCount(0);
   }
 
   async open() {
     await this.page.goto(SALES_PORTAL_URL);
+  }
+
+  async closeToastMessage() {
+    await this.toastCloseButton.click();
+    await expect(this.toastMessage).toHaveCount(0);
   }
 }
