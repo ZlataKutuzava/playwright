@@ -1,5 +1,5 @@
 import { MANUFACTURERS } from "../salesPortal/products/manufacturers";
-import { ID, IResponseFields } from "./core.types";
+import { ID, IResponseFields, SortOrder } from "./core.types";
 
 export interface IProduct {
   name: string;
@@ -26,3 +26,17 @@ export interface IProductResponse extends IResponseFields {
 export interface IProductsResponse extends IResponseFields {
   Products: IProductFromResponse[];
 }
+
+export interface IProductsSortedResponse extends IProductsResponse {
+  total: number;
+  page: number;
+  limit: number;
+  search: string;
+  manufacturer: string[];
+  sorting: {
+    sortField: ProductsSortField;
+    sortOrder: SortOrder;
+  };
+}
+
+export type ProductsSortField = "createdOn" | "manufacturer" | "price" | "name";

@@ -9,6 +9,9 @@ export class HomePage extends SalesPortalPage {
   readonly customersButton = this.page.locator("#customers-from-home");
   readonly ordersButton = this.page.locator("#orders-from-home");
   readonly uniqueElement = this.welcomeText;
+  readonly ordersThisYear = this.page.locator("#total-orders-container p");
+  readonly newCustomers = this.page.locator("#total-customers-container p");
+  readonly cancelledOrders = this.page.locator("#canceled-orders-container p");
 
   async clickOnViewModule(module: HomeModuleButton) {
     const moduleButtons: Record<HomeModuleButton, Locator> = {
