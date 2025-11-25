@@ -13,6 +13,20 @@ export class ProductsListPage extends SalesPortalPage {
   readonly deleteButton = (productName: string) => this.productInTableRow(productName).getByTitle("Delete");
   readonly deleteModal = new DeleteProductModal(this.page);
   readonly uniqueElement = this.addNewProductButton;
+  readonly tableRow = this.page.locator("tbody tr");
+  readonly tableHeader = this.page.locator("thead th div[current]");
+  readonly tableHeaderNamed = (name: "Name" | "Price" | "Manufacturer" | "Created On") => {
+    return this.tableHeader.filter({ hasText: name });
+  };
+  readonly tableHeaderArrow = (
+    name: "Name" | "Price" | "Manufacturer" | "Created On",
+    { direction }: { direction: "asc" | "desc" }
+  ) =>
+    this.page
+      .locator("thead th", {
+        has: this.page.locator("div[current]", { hasText: name })
+      })
+      .locator(`i.${direction === "asc" ? "bi-arrow-down" : "bi-arrow-up"}`);
 
   async clickAddNewProduct() {
     await this.addNewProductButton.click();
@@ -38,5 +52,31 @@ export class ProductsListPage extends SalesPortalPage {
       manufacturer: manufacturer as MANUFACTURERS,
       createdOn: createdOn!
     };
+  }
+
+  async clickAction(productName: string, button: "edit" | "delete" | "details") {
+    if (button === "edit") await this.editButton(productName).click();
+    if (button === "delete") await this.deleteButton(productName).click();
+    if (button === "details") await this.detailsButton(productName).click();
+  }
+
+  async getTableData(): Promise<IProductInTableRow[]> {
+    const data: IProductInTableRow[] = [];
+
+    const rows = await this.tableRow.all();
+    for (const row of rows) {
+      const [name, price, manufacturer, createdOn] = await row.locator("td").allInnerTexts();
+      data.push({
+        name: name!,
+        price: +price!.replace("$", ""),
+        manufacturer: manufacturer! as MANUFACTURERS,
+        createdOn: createdOn!
+      });
+    }
+    return data;
+  }
+
+  async clickTableHeader(name: "Name" | "Price" | "Manufacturer" | "Created On") {
+    await this.tableHeaderNamed(name).click();
   }
 }

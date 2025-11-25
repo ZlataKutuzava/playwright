@@ -4,7 +4,7 @@ import { LoginPage } from "src/ui/pages/login.page";
 import { AddNewProductPage } from "src/ui/pages/products/addNewProduct.page";
 import { ProductsListPage } from "src/ui/pages/products/productsList.page";
 
-interface IPages {
+export interface IPages {
   homePage: HomePage;
   loginPage: LoginPage;
   productsListPage: ProductsListPage;
