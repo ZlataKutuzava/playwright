@@ -5,12 +5,6 @@ import { IApiClient } from "../apiClients/types";
 
 export class ProductsApi {
   constructor(private apiClient: IApiClient) {}
-  //post
-  //put
-  //get by id
-  //get all
-  //get with pagination
-  //delete
 
   async create(product: IProduct, token: string) {
     const options: IRequestOptions = {

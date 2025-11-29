@@ -21,4 +21,8 @@ export interface IResponse<T extends object | null> {
   body: T;
 }
 
+export interface ICreatedOn {
+  createdOn: string;
+}
+
 export type SortOrder = "asc" | "desc";

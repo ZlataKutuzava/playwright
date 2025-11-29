@@ -1,7 +1,8 @@
 import { IProductInTableRow } from "src/data/types/product.types";
 import { SalesPortalPage } from "../salesPortal.page";
 import { MANUFACTURERS } from "src/data/salesPortal/products/manufacturers";
-import { DeleteProductModal } from "./details.modal";
+import { DeleteModal } from "./delete.modal";
+import { DetailsProductModal } from "./details.modal";
 
 export class ProductsListPage extends SalesPortalPage {
   readonly productsPageTitle = this.page.locator("h2.fw-bold");
@@ -11,7 +12,8 @@ export class ProductsListPage extends SalesPortalPage {
   readonly detailsButton = (productName: string) => this.productInTableRow(productName).getByTitle("Details");
   readonly editButton = (productName: string) => this.productInTableRow(productName).getByTitle("Edit");
   readonly deleteButton = (productName: string) => this.productInTableRow(productName).getByTitle("Delete");
-  readonly deleteModal = new DeleteProductModal(this.page);
+  readonly detailsModal = new DetailsProductModal(this.page);
+  readonly deleteModal = new DeleteModal(this.page);
   readonly uniqueElement = this.addNewProductButton;
   readonly tableRow = this.page.locator("tbody tr");
   readonly tableHeader = this.page.locator("thead th div[current]");
