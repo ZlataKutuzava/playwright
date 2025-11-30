@@ -33,8 +33,8 @@ test.describe("[Sales Portal] [Add new Product]", async () => {
     await productsListPage.deleteButton(productData.name).click();
     await productsListPage.waitForSpinners();
     await deleteModal.waitForOpened();
-    await deleteModal.submit();
-    await deleteModal.waitForModalClosed();
+    await deleteModal.clickConfirm();
+    await deleteModal.waitForClosed();
     await expect(deleteModal.uniqueElement).not.toBeVisible();
     await expect(deleteModal.toastMessage).toContainText(NOTIFICATIONS.PRODUCT_DELETED);
     await expect(productsListPage.productInTableRow(productData.name)).not.toBeVisible();

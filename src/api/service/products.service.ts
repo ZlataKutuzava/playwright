@@ -4,9 +4,12 @@ import { STATUS_CODES } from "src/data/statusCodes";
 import { IProduct } from "src/data/types/product.types";
 import { validateResponse } from "src/utils/validateResponse.utils";
 import { ProductsApi } from "../api/products.api";
+import { logStep } from "src/utils/report/logStep.utils";
 
 export class ProductsApiService {
   constructor(private productsApi: ProductsApi) {}
+
+  @logStep("Create Products via API")
   async create(token: string, productData?: IProduct) {
     const data = generateproductData(productData);
     const response = await this.productsApi.create(data, token);
@@ -19,6 +22,7 @@ export class ProductsApiService {
     return response.body.Product;
   }
 
+  @logStep("Delete product via API")
   async delete(token: string, id: string) {
     const response = await this.productsApi.delete(id, token);
     validateResponse(response, {

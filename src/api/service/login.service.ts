@@ -4,10 +4,12 @@ import { expect } from "@playwright/test";
 import { ICredentials } from "src/data/types/credentials.types";
 import { validateResponse } from "src/utils/validateResponse.utils";
 import { STATUS_CODES } from "src/data/statusCodes";
+import { logStep } from "src/utils/report/logStep.utils";
 
 export class LoginService {
   constructor(private loginApi: LoginApi) {}
 
+  @logStep("Login as Admin via API")
   async loginAsAdmin(customCredentials?: ICredentials) {
     const response = await this.loginApi.login(customCredentials ?? credentials);
     validateResponse(response, {
@@ -18,7 +20,6 @@ export class LoginService {
     const headers = response.headers;
     const token = headers["authorization"];
     expect(token).toBeTruthy();
-
     return token;
   }
 }
