@@ -3,6 +3,7 @@ import { SalesPortalPage } from "../salesPortal.page";
 import { MANUFACTURERS } from "src/data/salesPortal/products/manufacturers";
 import { DeleteModal } from "./delete.modal";
 import { DetailsProductModal } from "./details.modal";
+import { logStep } from "src/utils/report/logStep.utils";
 
 export class ProductsListPage extends SalesPortalPage {
   readonly productsPageTitle = this.page.locator("h2.fw-bold");
@@ -34,6 +35,7 @@ export class ProductsListPage extends SalesPortalPage {
     await this.addNewProductButton.click();
   }
 
+  @logStep("Get First Table Row")
   async getFirstRow(): Promise<IProductInTableRow> {
     const [name, price, manufacturer, createdOn] = await this.firstTableRow.locator("td").allInnerTexts();
     return {
@@ -44,6 +46,7 @@ export class ProductsListPage extends SalesPortalPage {
     };
   }
 
+  @logStep("Get Product Data")
   async getProductData(productName: string): Promise<IProductInTableRow> {
     const [name, price, manufacturer, createdOn] = await this.productInTableRow(productName)
       .locator("td")
@@ -56,12 +59,14 @@ export class ProductsListPage extends SalesPortalPage {
     };
   }
 
+  @logStep("Click on the Action button")
   async clickAction(productName: string, button: "edit" | "delete" | "details") {
     if (button === "edit") await this.editButton(productName).click();
     if (button === "delete") await this.deleteButton(productName).click();
     if (button === "details") await this.detailsButton(productName).click();
   }
 
+  @logStep("Get Table Data")
   async getTableData(): Promise<IProductInTableRow[]> {
     const data: IProductInTableRow[] = [];
 
@@ -78,6 +83,7 @@ export class ProductsListPage extends SalesPortalPage {
     return data;
   }
 
+  @logStep("Click on the Table Header")
   async clickTableHeader(name: "Name" | "Price" | "Manufacturer" | "Created On") {
     await this.tableHeaderNamed(name).click();
   }
